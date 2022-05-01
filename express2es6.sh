@@ -1,5 +1,7 @@
 #! /bin/bash
 
+root=$(pwd)
+
 if [ $# -eq 1 ]; then
   path=$(pwd)/$1
 fi
@@ -40,12 +42,4 @@ npm install -D @babel/core @babel/cli @babel/preset-env @babel/node
 echo $path
 echo "{ \"presets\": [\"@babel\/preset-env\"]}" > "$path/.babelrc"
 
-sed -i '' "/scripts/ a\\
-\"start\": \"node \.\/bin\/www.js\",
-" $path/package.json
-sed -i '' "/scripts /a\\
-\"server\": \"babel-node \.\/src\/bin\/www\",
-" $path/package.json
-sed -i '' "/scripts /a\\
-\"dev\": \"dev\": \"NODE_ENV=development npm-run-all server\",
-" $path/package.json
+python3 $root/packageInput.py $path
