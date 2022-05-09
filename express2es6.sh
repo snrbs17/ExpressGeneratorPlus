@@ -30,7 +30,7 @@ do
   python3 ./format.py $file
 done
 
-sed -i '' "s/public/..\/public/" $path/src/app.js
+sed -i '' "s/'public'/'..\/public'/" $path/src/app.js
 
 
 cd $path
