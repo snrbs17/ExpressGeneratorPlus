@@ -8,7 +8,7 @@ def formatter(file):
         lines = fileReader.readlines()
     with open(file, 'w') as fileWriter:
         for line in lines:
-            if 'require' in line:
+            if ' require(' in line:
                 fileWriter.write(require2import(line))
             elif 'module.exports' in line:
                 fileWriter.write(export(line))
@@ -19,8 +19,10 @@ def formatter(file):
 def require2import(sentence):
     sentence = sentence.split(' ')
     name = sentence[1]
-    source = sentence[-1].split("\'")[1]
-    return f"import {name} from '{source}';\n"
+    source = sentence[-1].split("\'")
+    if len(source) > 4:
+        return f"import {source[1].capitalize()} from {source[1]};\nconst {source[1]} = {source[1].capitalize()}('{source[3]}');\n"
+    return f"import {name} from '{source[1]}';\n"
 
 
 def export(sentence):

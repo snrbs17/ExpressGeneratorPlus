@@ -20,7 +20,7 @@ fi
 
 mv $path/{bin,routes,views,app.js} $path/src
 
-files=$(find $path/ -type f \! \( -type d -name node_modules -prune false \) | grep '\.js$')
+files=$(find target ! \( -path 'target/node_modules' -prune \) -name "*.js")
 echo 'find .js'
 echo $files
 
